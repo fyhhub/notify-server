@@ -2,7 +2,7 @@
  * @Author: fanyihui
  * @Date: 2022-02-05 19:31:39
  * @LastEditors: VSCode
- * @LastEditTime: 2022-02-05 21:28:41
+ * @LastEditTime: 2022-02-09 18:56:39
  * @FilePath: /notify-server/src/libs/LoveMsg/templates/textcard.ts
  * @Description:
  *
@@ -46,7 +46,7 @@ export const textCardTemplate = (data: TextCardTemplateProps) => {
   const dateLength = dayjs(date).diff(start_stamp, 'day')
 
   // 公历节日、农历节日和二十四节气
-  const { festival, lunar_festival, jieqi, lubarmonth, lunarday } = lunarInfo
+  const { festival, lunar_festival, jieqi, lubarmonth, lunarday } = lunarInfo || {}
   const festival_info = festival ? `| ${festival}` : ''
   const lunar_festival_info = lunar_festival ? `| ${lunar_festival}` : ''
   const jieqi_info = jieqi ? `| ${jieqi}` : ''
@@ -99,9 +99,9 @@ ${tips}\n`
     textcard: {
       title,
       description,
-      //   url: 'https://api.lovelive.tools/api/SweetNothings',
+      url: 'https://api.lovelive.tools/api/SweetNothings',
       //   url: 'https://v1.jinrishici.com/all.svg',
-      url: 'https://api.vvhan.com/api/60s', // 60s看世界
+      // url: 'https://api.vvhan.com/api/60s', // 60s看世界
       btntxt: 'By Fyh',
     },
   }

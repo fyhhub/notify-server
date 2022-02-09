@@ -19,8 +19,8 @@ const getNews = async() => {
     //   ctime: n.mtime,
     // }))
     // 今日头条
-    const todayTopNews = await API.getTianTopNews()
-    console.log('todayTopNews', todayTopNews.length)
+    let todayTopNews = await API.getTianTopNews() || []
+    todayTopNews = todayTopNews || []
 
     // 每次信息最多8个
     // 设定发送两次一共16个信息，数据如果不够则请求另一个接口
@@ -35,7 +35,7 @@ const getNews = async() => {
       // 取 0- 8 条
       result = todayTopNews.slice(0, len >= 8 ? 8 : len)
       // 数据不够，请求另一个接口
-      const dailyBriefing = await API.getDailyBriefing()
+      const dailyBriefing = await API.getDailyBriefing() || []
       console.log('dailyBriefing', dailyBriefing.length)
       const formateData: TodayHeadlines[] = dailyBriefing.map(n => ({
         ...n,
@@ -82,10 +82,11 @@ const getNews = async() => {
 // 获今日取故事
 const getStory = async() => {
   const res = await API.getStorybook()
+  if (!res) return
   const template = {
     msgtype: 'text',
     text: {
-      content: `给鱼崽的今日份睡前故事来喽：
+      content: `给明悦的今日份睡前故事来喽：
 🌑🌒🌓🌔🌕🌝😛\n
 『${res.title}』
 ${res.content}`,

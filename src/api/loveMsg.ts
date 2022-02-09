@@ -33,6 +33,7 @@ enum LoveMsgURL {
   joke = 'http://api.tianapi.com/joke/index',
   // 一言
   oneWord = 'https://v1.hitokoto.cn/?encode=json',
+  moments = 'http://api.tianapi.com/pyqwenan/index'
 }
 
 class API {
@@ -127,7 +128,8 @@ class API {
     try {
       const response = await axios(LoveMsgURL.oneWord, { timeout: 30000 })
       return response.data
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error)
       return null
     }
