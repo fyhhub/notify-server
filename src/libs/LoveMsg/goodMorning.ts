@@ -1,3 +1,13 @@
+/*
+ * @Author: fanyihui
+ * @Date: 2022-02-05 19:31:39
+ * @LastEditors: VSCode
+ * @LastEditTime: 2022-02-09 18:26:33
+ * @FilePath: /notify-server/src/libs/LoveMsg/goodMorning.ts
+ * @Description:
+ *
+ * Copyright (c) 2022 by fanyihui/tuhu, All Rights Reserved.
+ */
 /**
  * @name goodMorning
  * @description 说早安
@@ -8,7 +18,7 @@ import { textTemplate } from './templates/text'
 import { textCardTemplate } from './templates/textcard'
 
 // 美丽短句
-const goodWord = async () => {
+const goodWord = async() => {
   try {
     // 并行请求，优响相应
     const dataSource = await Promise.allSettled([
@@ -22,8 +32,8 @@ const goodWord = async () => {
     ])
 
     // 过滤掉异常数据
-    const [sayLove, caiHongpi, oneWord, songLyrics, oneMagazines, netEaseCloud, dayEnglish] =
-      dataSource.map((n) => (n.status === 'fulfilled' ? n.value : null))
+    const [sayLove, caiHongpi, oneWord, songLyrics, oneMagazines, netEaseCloud, dayEnglish]
+      = dataSource.map(n => (n.status === 'fulfilled' ? n.value : null))
 
     // 对象写法
     const data: any = {
@@ -40,14 +50,15 @@ const goodWord = async () => {
     console.log('goodWord', template)
 
     wxNotify(template)
-  } catch (error) {
+  }
+  catch (error) {
     console.log('goodWord:err', error)
   }
 }
 
 // 天气信息
-const weatherInfo = async () => {
-  const weather = await API.getWeather('蚌埠')
+const weatherInfo = async() => {
+  const weather = await API.getWeather('上海')
   if (weather) {
     const lunarInfo = await API.getLunarDate(weather.date)
     const template = textCardTemplate({ ...weather, lunarInfo })
@@ -59,7 +70,7 @@ const weatherInfo = async () => {
 }
 
 // goodMorning
-export const goodMorning = async () => {
+export const goodMorning = async() => {
   await weatherInfo()
   await goodWord()
 }
